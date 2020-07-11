@@ -1,35 +1,49 @@
 package memento
 
-import "fmt"
+/*
+	memento 备忘录模式
+*/
 
-type Memento interface{}
-
-type Game struct {
-	hp, mp int
+//Memento 备忘录结构体
+type Memento struct {
+	state string // 这里就是保存的状态
 }
 
-type gameMemento struct {
-	hp, mp int
+func (m *Memento) SetState(s string) {
+	m.state = s
 }
 
-func (g *Game) Play(mpDelta, hpDelta int) {
-	g.mp += mpDelta
-	g.hp += hpDelta
+func (m *Memento) GetState() string {
+	return m.state
 }
 
-func (g *Game) Save() Memento {
-	return &gameMemento{
-		hp: g.hp,
-		mp: g.mp,
-	}
+//Originator 发起人结构体
+type Originator struct {
+	state string // 这里就简单一点，要保存的状态就是一个字符串
 }
 
-func (g *Game) Load(m Memento) {
-	gm := m.(*gameMemento)
-	g.mp = gm.mp
-	g.hp = gm.hp
+func (o *Originator) SetState(s string) {
+	o.state = s
 }
 
-func (g *Game) Status() {
-	fmt.Printf("Current HP:%d, MP:%d\n", g.hp, g.mp)
+func (o *Originator) GetState() string {
+	return o.state
+}
+
+//CreateMemento 发起人创建备忘录，这里就是规定了要保存的状态范围
+func (o *Originator) CreateMemento() *Memento {
+	return &Memento{state: o.state}
+}
+
+//Caretaker 负责人
+type Caretaker struct {
+	memento *Memento
+}
+
+func (c *Caretaker) GetMemento() *Memento {
+	return c.memento
+}
+
+func (c *Caretaker) SetMemento(m *Memento) {
+	c.memento = m
 }

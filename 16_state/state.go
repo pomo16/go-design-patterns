@@ -2,6 +2,10 @@ package state
 
 import "fmt"
 
+/*
+	state 状态模式
+*/
+
 //Context 环境类
 type Context struct {
 	State       ActionState
