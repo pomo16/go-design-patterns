@@ -13,5 +13,5 @@ func TestObserver(t *testing.T) {
 	// 这里的被观察者要做各种更改...
 
 	// 更改完毕，触发观察者
-	s.NotifyObservers()  // output: 已经触发了观察者
+	s.NotifyObservers() // output: 已经触发了观察者
 }

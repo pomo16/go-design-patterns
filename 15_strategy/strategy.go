@@ -12,21 +12,21 @@ type IStrategy interface {
 }
 
 //BubbleSortStrategy 定义策略，这里定义了冒泡排序和归并排序两种策略
-type BubbleSortStrategy struct {}
+type BubbleSortStrategy struct{}
 
-func ( b BubbleSortStrategy) SortList()  {
+func (b BubbleSortStrategy) SortList() {
 	fmt.Println("这是冒泡排序")
 }
 
-type MergeSortStrategy struct {}
+type MergeSortStrategy struct{}
 
-func (m MergeSortStrategy) SortList()  {
+func (m MergeSortStrategy) SortList() {
 	fmt.Println("这是归并排序")
 }
 
 //Context 定义上下文
 type Context struct {
-	Strategy IStrategy  // 上下文中指定的策略
+	Strategy IStrategy // 上下文中指定的策略
 }
 
 func (c Context) Exec() {

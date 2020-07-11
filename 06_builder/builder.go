@@ -62,5 +62,3 @@ func (d *Director) Construct() {
 	d.builder.BuildPart2()
 	d.builder.BuildPart3()
 }
-
-

@@ -18,7 +18,7 @@ type ISubject interface {
 }
 
 //Observer 实现观察者
-type Observer struct {}
+type Observer struct{}
 
 func (o *Observer) Notify() {
 	fmt.Println("已经触发了观察者")

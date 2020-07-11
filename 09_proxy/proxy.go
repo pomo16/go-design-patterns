@@ -37,4 +37,3 @@ func (p Proxy) Do() string {
 
 	return res
 }
-

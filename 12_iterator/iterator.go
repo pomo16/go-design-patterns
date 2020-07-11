@@ -30,7 +30,7 @@ func (a *Aggregate) Iterator() IIterator {
 
 //Iterator 迭代器实现
 type Iterator struct {
-	cursor    int // 当前游标
+	cursor    int        // 当前游标
 	aggregate *Aggregate // 对应的容器指针
 }
 

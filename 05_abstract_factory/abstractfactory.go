@@ -45,7 +45,7 @@ func (Factory2Product2) create() {
 	fmt.Println("this is Factory2's Product2")
 }
 
-type Factory1 struct {}
+type Factory1 struct{}
 
 func (Factory1) CreateProduct1() ProductInterface {
 	return Factory1Product1{}
@@ -55,7 +55,7 @@ func (Factory1) CreateProduct2() ProductInterface {
 	return Factory1Product2{}
 }
 
-type Factory2 struct {}
+type Factory2 struct{}
 
 func (Factory2) CreateProduct1() ProductInterface {
 	return Factory1Product1{}

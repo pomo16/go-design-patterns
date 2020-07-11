@@ -79,4 +79,3 @@ func NewConcreteClass2() AbstractClass {
 func (d *ConcreteClass2) method1() {
 	fmt.Printf("ConcreteClass2 %s method1\n", d.name)
 }
-
