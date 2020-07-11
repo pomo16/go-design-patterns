@@ -5,18 +5,26 @@ import (
 	"strings"
 )
 
+/*
+	interpreter 解释器模式：以整数加减计算解析器为例
+*/
+
+//Node 解释器接口，需要被解析的对象都要实现解析器接口
 type Node interface {
 	Interpret() int
 }
 
+//ValNode 数值
 type ValNode struct {
 	val int
 }
 
+//Interpret 数值解析
 func (n *ValNode) Interpret() int {
 	return n.val
 }
 
+//AddNode 加法解析器
 type AddNode struct {
 	left, right Node
 }
@@ -25,6 +33,7 @@ func (n *AddNode) Interpret() int {
 	return n.left.Interpret() + n.right.Interpret()
 }
 
+//MinNode 减法解析器
 type MinNode struct {
 	left, right Node
 }
@@ -33,54 +42,56 @@ func (n *MinNode) Interpret() int {
 	return n.left.Interpret() - n.right.Interpret()
 }
 
-type Parser struct {
+//Calculator 计算器
+type Calculator struct {
 	exp   []string
 	index int
 	prev  Node
 }
 
-func (p *Parser) Parse(exp string) {
-	p.exp = strings.Split(exp, " ")
+//Parse 计算器解析
+func (c *Calculator) Parse(exp string) {
+	c.exp = strings.Split(exp, " ")
 
 	for {
-		if p.index >= len(p.exp) {
+		if c.index >= len(c.exp) {
 			return
 		}
-		switch p.exp[p.index] {
+		switch c.exp[c.index] {
 		case "+":
-			p.prev = p.newAddNode()
+			c.prev = c.newAddNode()
 		case "-":
-			p.prev = p.newMinNode()
+			c.prev = c.newMinNode()
 		default:
-			p.prev = p.newValNode()
+			c.prev = c.newValNode()
 		}
 	}
 }
 
-func (p *Parser) newAddNode() Node {
-	p.index++
+func (c *Calculator) newAddNode() Node {
+	c.index++
 	return &AddNode{
-		left:  p.prev,
-		right: p.newValNode(),
+		left:  c.prev,
+		right: c.newValNode(),
 	}
 }
 
-func (p *Parser) newMinNode() Node {
-	p.index++
+func (c *Calculator) newMinNode() Node {
+	c.index++
 	return &MinNode{
-		left:  p.prev,
-		right: p.newValNode(),
+		left:  c.prev,
+		right: c.newValNode(),
 	}
 }
 
-func (p *Parser) newValNode() Node {
-	v, _ := strconv.Atoi(p.exp[p.index])
-	p.index++
+func (c *Calculator) newValNode() Node {
+	v, _ := strconv.Atoi(c.exp[c.index])
+	c.index++
 	return &ValNode{
 		val: v,
 	}
 }
 
-func (p *Parser) Result() Node {
-	return p.prev
+func (c *Calculator) Result() Node {
+	return c.prev
 }
